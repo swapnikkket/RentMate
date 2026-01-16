@@ -23,3 +23,24 @@ export const getMe = async () => {
 
   return response.data;
 };
+
+export const createListing = async (listingData) => {
+  const token = localStorage.getItem("token");
+
+  const response = await axios.post(
+    "http://localhost:5000/api/listings",
+    listingData,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  return response.data;
+};
+
+export const getListings = async () => {
+  const response = await axios.get("http://localhost:5000/api/listings");
+  return response.data;
+};
