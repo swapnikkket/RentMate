@@ -1,8 +1,15 @@
+import Register from "./pages/Register";
+import Login from "./pages/Login";
+import Profile from "./pages/Profile";
+
 function App() {
   return (
     <div>
-      <h1>RentMate</h1>
-      <p>Find rooms, roommates, and items</p>
+      <Register />
+      <hr />
+      <Login />
+      <hr />
+      <Profile />
     </div>
   );
 }
