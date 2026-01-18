@@ -34,7 +34,7 @@ export const createListing = async (listingData) => {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    }
+    },
   );
 
   return response.data;
@@ -55,7 +55,7 @@ export const updateListing = async (id, updatedData) => {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    }
+    },
   );
 
   return response.data;
@@ -70,7 +70,7 @@ export const deleteListing = async (id) => {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    }
+    },
   );
 
   return response.data;

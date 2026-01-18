@@ -25,10 +25,18 @@ const Listings = () => {
     fetchListings();
   }, []);
 
-  // 🔹 Get logged-in user id from token (UI auth check)
-  const loggedInUserId = JSON.parse(
-    atob(localStorage.getItem("token")?.split(".")[1] || "{}")
-  ).id;
+  // 🔹 SAFE token decoding (no crash)
+  let loggedInUserId = null;
+  const token = localStorage.getItem("token");
+
+  if (token) {
+    try {
+      const payload = JSON.parse(atob(token.split(".")[1]));
+      loggedInUserId = payload.id;
+    } catch (error) {
+      console.error("Invalid or corrupted token");
+    }
+  }
 
   return (
     <div>
@@ -79,7 +87,7 @@ const Listings = () => {
                     onClick={async () => {
                       await deleteListing(listing._id);
                       setListings(
-                        listings.filter((l) => l._id !== listing._id)
+                        listings.filter((l) => l._id !== listing._id),
                       );
                     }}
                   >
@@ -115,15 +123,10 @@ const Listings = () => {
 
               <button
                 onClick={async () => {
-                  const updated = await updateListing(
-                    listing._id,
-                    editForm
-                  );
+                  const updated = await updateListing(listing._id, editForm);
 
                   setListings(
-                    listings.map((l) =>
-                      l._id === listing._id ? updated : l
-                    )
+                    listings.map((l) => (l._id === listing._id ? updated : l)),
                   );
 
                   setEditingId(null);
