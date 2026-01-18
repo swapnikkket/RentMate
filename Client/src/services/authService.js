@@ -44,3 +44,34 @@ export const getListings = async () => {
   const response = await axios.get("http://localhost:5000/api/listings");
   return response.data;
 };
+
+export const updateListing = async (id, updatedData) => {
+  const token = localStorage.getItem("token");
+
+  const response = await axios.put(
+    `http://localhost:5000/api/listings/${id}`,
+    updatedData,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  return response.data;
+};
+
+export const deleteListing = async (id) => {
+  const token = localStorage.getItem("token");
+
+  const response = await axios.delete(
+    `http://localhost:5000/api/listings/${id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+
+  return response.data;
+};
